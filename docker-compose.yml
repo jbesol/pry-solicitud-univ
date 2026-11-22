@@ -1,0 +1,28 @@
+# Levanta PostgreSQL + la aplicación completa:  docker compose up --build
+# Luego abra http://localhost:8000
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: solicitudes
+      POSTGRES_USER: solicitudes
+      POSTGRES_PASSWORD: solicitudes
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solicitudes"]
+      interval: 5s
+      retries: 10
+
+  app:
+    build: .
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgresql+psycopg2://solicitudes:solicitudes@db:5432/solicitudes
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-cambie-esta-clave-en-produccion}
+      SEED_DEMO: "true"
+    ports: ["8000:8000"]
+
+volumes:
+  pgdata:
