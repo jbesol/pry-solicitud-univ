@@ -4,7 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: { 50: '#eef6f6', 100: '#d4e9ea', 200: '#a9d3d5', 500: '#1f7a80', 600: '#17646a', 700: '#124f54', 800: '#0e3d41', 900: '#0b2f32' }
+        brand: {
+          50: '#f1f7f9',
+          100: '#dbeaf0',
+          200: '#b8d4de',
+          500: '#4d96a8',
+          600: '#397d91',
+          700: '#2f687a',
+          800: '#244f5e',
+          900: '#173a47'
+        }
       },
       fontFamily: { sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'] }
     }

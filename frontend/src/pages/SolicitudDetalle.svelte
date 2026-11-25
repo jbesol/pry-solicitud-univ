@@ -126,9 +126,9 @@
         <h2 class="etiqueta">Descripción</h2>
         <p class="whitespace-pre-line text-sm leading-relaxed text-slate-700">{s.descripcion}</p>
         {#if s.solucion}
-          <div class="mt-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4">
-            <h3 class="text-xs font-semibold uppercase tracking-wide text-emerald-800">Solución aplicada</h3>
-            <p class="mt-1 whitespace-pre-line text-sm text-emerald-900">{s.solucion}</p>
+          <div class="mt-5 rounded-lg border border-brand-200 bg-brand-50 p-4">
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-brand-800">Solución aplicada</h3>
+            <p class="mt-1 whitespace-pre-line text-sm text-brand-900">{s.solucion}</p>
           </div>
         {/if}
       </section>
@@ -189,7 +189,7 @@
         <ol class="relative ml-2 border-l border-slate-200">
           {#each [...s.movimientos].reverse() as m}
             <li class="mb-5 ml-4">
-              <span class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border-2 border-white {m.tipo === 'CAMBIO_ESTADO' ? 'bg-brand-600' : m.tipo === 'ASIGNACION' ? 'bg-sky-500' : 'bg-slate-300'}"></span>
+              <span class="absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full border-2 border-white {m.tipo === 'CAMBIO_ESTADO' ? 'bg-brand-600' : m.tipo === 'ASIGNACION' ? 'bg-brand-500' : 'bg-slate-300'}"></span>
               <p class="text-xs text-slate-400">{fecha(m.fecha)}</p>
               <p class="text-sm font-medium text-slate-800">{descMov(m)}</p>
               <p class="text-xs text-slate-500">por {m.usuario.nombre_completo}</p>

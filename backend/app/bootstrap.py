@@ -37,11 +37,11 @@ CATEGORIAS = [
 ]
 
 USUARIOS = [
-    ("1000000001", "Ana", "Administradora", "admin@universidad.edu.co", R.ADMINISTRADOR, "Oficina TIC"),
-    ("1000000002", "Sergio", "Supervisor", "supervisor@universidad.edu.co", R.SUPERVISOR, "Vicerrectoría"),
-    ("1000000003", "Fabio", "Funcionario Pérez", "funcionario@universidad.edu.co", R.FUNCIONARIO, "Registro y Control"),
+    ("1000000001", "Ana", "Ramírez", "admin@universidad.edu.co", R.ADMINISTRADOR, "Oficina TIC"),
+    ("1000000002", "Sergio", "Mendoza", "supervisor@universidad.edu.co", R.SUPERVISOR, "Vicerrectoría"),
+    ("1000000003", "Fabio", "Pérez", "funcionario@universidad.edu.co", R.FUNCIONARIO, "Registro y Control"),
     ("1000000004", "Laura", "Gómez Torres", "laura.gomez@universidad.edu.co", R.FUNCIONARIO, "Oficina TIC"),
-    ("1000000005", "Esteban", "Estudiante Ruiz", "estudiante@universidad.edu.co", R.ESTUDIANTE, "Ingeniería de Sistemas"),
+    ("1000000005", "Esteban", "Ruiz", "estudiante@universidad.edu.co", R.ESTUDIANTE, "Ingeniería de Sistemas"),
     ("1000000006", "María", "López Díaz", "maria.lopez@universidad.edu.co", R.ESTUDIANTE, "Contaduría Pública"),
     ("1000000007", "Carlos", "Ramírez Mejía", "carlos.ramirez@universidad.edu.co", R.ESTUDIANTE, "Derecho"),
 ]

@@ -40,7 +40,7 @@
     <div class="tarjeta flex flex-col p-5 {c.activa ? '' : 'opacity-60'}">
       <div class="flex items-start justify-between gap-2">
         <h3 class="font-semibold text-slate-900">{c.nombre}</h3>
-        <span class="rounded-full px-2 py-0.5 text-xs {c.activa ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}">{c.activa ? 'Activa' : 'Inactiva'}</span>
+        <span class="rounded-full px-2 py-0.5 text-xs {c.activa ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}">{c.activa ? 'Activa' : 'Inactiva'}</span>
       </div>
       <p class="mt-1 flex-1 text-sm text-slate-500">{c.descripcion || 'Sin descripción'}</p>
       <div class="mt-4 flex items-center justify-between text-xs text-slate-500">

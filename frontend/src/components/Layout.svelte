@@ -58,14 +58,27 @@
   // ----- cambio de contraseña
   let modalClave = false
   let clave = { actual: '', nueva: '', confirmar: '' }
+  let cambiandoClave = false
+  let mostrarActual = false
+  let mostrarNueva = false
+  let mostrarConfirmar = false
   async function cambiarClave() {
+    if (clave.nueva.length < 8) return avisar('La nueva contraseña debe tener al menos 8 caracteres', 'error')
     if (clave.nueva !== clave.confirmar) return avisar('Las contraseñas no coinciden', 'error')
+    cambiandoClave = true
     try {
       await api('/auth/cambiar-password', { method: 'POST', body: { actual: clave.actual, nueva: clave.nueva } })
-      avisar('Contraseña actualizada'); modalClave = false; clave = { actual: '', nueva: '', confirmar: '' }
+      avisar('Contraseña actualizada')
+      modalClave = false
+      clave = { actual: '', nueva: '', confirmar: '' }
     } catch (e) { avisar(e.message, 'error') }
+    finally { cambiandoClave = false }
   }
-  function salir() { sesion.cerrar(); navigate('/', { replace: true }) }
+  function salir() {
+    sesion.cerrar()
+    noLeidas.set(0)
+    window.location.assign('/')
+  }
 </script>
 
 <div class="min-h-screen lg:flex">
@@ -73,11 +86,11 @@
   <aside class="fixed inset-y-0 left-0 z-30 w-64 transform bg-brand-900 text-brand-100 transition lg:static lg:translate-x-0 {menuMovil ? 'translate-x-0' : '-translate-x-full'}">
     <div class="flex h-16 items-center gap-3 px-5">
       <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
-        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h9"/></svg>
+        <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h16"/></svg>
       </div>
       <div class="leading-tight">
-        <p class="text-sm font-semibold text-white">Solicitudes</p>
-        <p class="text-xs text-brand-200">Gestión universitaria</p>
+        <p class="text-sm font-semibold text-white">Solicitudes CUL</p>
+        <p class="text-xs text-brand-200">Corporación Universitaria Latinoamericana</p>
       </div>
     </div>
     <nav class="mt-4 space-y-1 px-3">
@@ -142,9 +155,27 @@
 
 <Modal titulo="Cambiar contraseña" bind:abierto={modalClave} ancho="max-w-sm">
   <form class="space-y-4" on:submit|preventDefault={cambiarClave}>
-    <div><label class="etiqueta" for="c1">Contraseña actual</label><input id="c1" class="campo" type="password" bind:value={clave.actual} required /></div>
-    <div><label class="etiqueta" for="c2">Nueva contraseña (mín. 8)</label><input id="c2" class="campo" type="password" minlength="8" bind:value={clave.nueva} required /></div>
-    <div><label class="etiqueta" for="c3">Confirmar</label><input id="c3" class="campo" type="password" bind:value={clave.confirmar} required /></div>
-    <div class="flex justify-end gap-2"><button type="button" class="btn-secundario" on:click={() => (modalClave = false)}>Cancelar</button><button class="btn-primario">Guardar</button></div>
+    <div>
+      <label class="etiqueta" for="c1">Contraseña actual</label>
+      <div class="relative">
+        <input id="c1" class="campo pr-11" type={mostrarActual ? 'text' : 'password'} value={clave.actual} on:input={(e) => (clave.actual = e.currentTarget.value)} required />
+        <button type="button" class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100" on:click={() => (mostrarActual = !mostrarActual)} aria-label={mostrarActual ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{mostrarActual ? '○' : '◉'}</button>
+      </div>
+    </div>
+    <div>
+      <label class="etiqueta" for="c2">Nueva contraseña (mín. 8)</label>
+      <div class="relative">
+        <input id="c2" class="campo pr-11" type={mostrarNueva ? 'text' : 'password'} value={clave.nueva} on:input={(e) => (clave.nueva = e.currentTarget.value)} minlength="8" required />
+        <button type="button" class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100" on:click={() => (mostrarNueva = !mostrarNueva)} aria-label={mostrarNueva ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{mostrarNueva ? '○' : '◉'}</button>
+      </div>
+    </div>
+    <div>
+      <label class="etiqueta" for="c3">Confirmar</label>
+      <div class="relative">
+        <input id="c3" class="campo pr-11" type={mostrarConfirmar ? 'text' : 'password'} value={clave.confirmar} on:input={(e) => (clave.confirmar = e.currentTarget.value)} required />
+        <button type="button" class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100" on:click={() => (mostrarConfirmar = !mostrarConfirmar)} aria-label={mostrarConfirmar ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{mostrarConfirmar ? '○' : '◉'}</button>
+      </div>
+    </div>
+    <div class="flex justify-end gap-2"><button type="button" class="btn-secundario" on:click={() => (modalClave = false)}>Cancelar</button><button type="submit" class="btn-primario" disabled={cambiandoClave}>{cambiandoClave ? 'Guardando…' : 'Guardar'}</button></div>
   </form>
 </Modal>

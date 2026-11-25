@@ -11,6 +11,7 @@
   let modal = false
   let editando = null
   let form = {}
+  let mostrarPassword = false
 
   const vacio = () => ({ documento: '', nombres: '', apellidos: '', email: '', password: '', telefono: '', dependencia: '', rol: 'ESTUDIANTE' })
   async function cargar() { lista = await api('/usuarios' + qs(f)).catch((e) => (avisar(e.message, 'error'), [])) }
@@ -72,7 +73,7 @@
               {#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}
             </select>
           </td>
-          <td><span class="rounded-full px-2 py-0.5 text-xs font-medium {u.activo ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'}">{u.activo ? 'Activo' : 'Inactivo'}</span></td>
+          <td><span class="rounded-full px-2 py-0.5 text-xs font-medium {u.activo ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}">{u.activo ? 'Activo' : 'Inactivo'}</span></td>
           <td class="text-xs">{fechaCorta(u.fecha_creacion)}</td>
           <td class="whitespace-nowrap text-right">
             <button class="btn-fantasma px-2 py-1 text-xs" on:click={() => editar(u)}>Editar</button>
@@ -98,7 +99,11 @@
     <div><label class="etiqueta" for="ft">Teléfono</label><input id="ft" class="campo" bind:value={form.telefono} /></div>
     <div><label class="etiqueta" for="fdp">Dependencia / programa</label><input id="fdp" class="campo" bind:value={form.dependencia} /></div>
     <div class="col-span-2"><label class="etiqueta" for="fp">{editando ? 'Nueva contraseña (dejar vacío para no cambiar)' : 'Contraseña inicial * (mín. 8)'}</label>
-      <input id="fp" type="password" class="campo" bind:value={form.password} minlength="8" required={!editando} /></div>
+      <div class="relative">
+        <input id="fp" type={mostrarPassword ? 'text' : 'password'} class="campo pr-11" value={form.password || ''} on:input={(e) => (form.password = e.currentTarget.value)} minlength="8" required={!editando} />
+        <button type="button" class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100" on:click={() => (mostrarPassword = !mostrarPassword)} aria-label={mostrarPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{mostrarPassword ? '○' : '◉'}</button>
+      </div>
+    </div>
     <div class="col-span-2 flex justify-end gap-2"><button type="button" class="btn-secundario" on:click={() => (modal = false)}>Cancelar</button><button class="btn-primario">Guardar</button></div>
   </form>
 </Modal>

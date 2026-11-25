@@ -67,3 +67,21 @@ def test_cambiar_password(client, h):
     assert r.status_code == 204
     r = client.post("/api/auth/login", json={"email": "estudiante@universidad.edu.co", "password": "NuevaClave1"})
     assert r.status_code == 200
+
+
+def test_admin_actualiza_password_de_otro_usuario(client, h, ids):
+    uid = ids['estudiante']
+    r = client.put(f"/api/usuarios/{uid}", json={"password": "NuevaClaveAdmin1"}, headers=h["admin"])
+    assert r.status_code == 200
+
+    r = client.post("/api/auth/login", json={
+        "email": "estudiante@universidad.edu.co",
+        "password": "NuevaClaveAdmin1",
+    })
+    assert r.status_code == 200
+
+    r = client.post("/api/auth/login", json={
+        "email": "estudiante@universidad.edu.co",
+        "password": "Demo1234*",
+    })
+    assert r.status_code == 401

@@ -20,7 +20,7 @@
         <li class="grid grid-cols-[9rem_1fr_3rem] items-center gap-3 text-sm">
           <span class="truncate text-slate-600" title={d.etiqueta}>{d.etiqueta}</span>
           <span class="h-5 overflow-hidden rounded bg-slate-100">
-            <span class="block h-full rounded transition-all duration-500" style="width:{(d.total / max) * 100}%; background:{colores[d.clave] || '#1f7a80'}"></span>
+            <span class="block h-full rounded transition-all duration-500" style="width:{(d.total / max) * 100}%; background:{colores[d.clave] || '#397d91'}"></span>
           </span>
           <span class="text-right font-medium tabular-nums text-slate-800">{d.total}</span>
         </li>
