@@ -29,8 +29,8 @@
     cargar()
   }
 
-  const COLORES_ESTADO = { REGISTRADA: '#94a3b8', ASIGNADA: '#397d91', EN_PROCESO: '#4d96a8', RESUELTA: '#2f687a', CERRADA: '#173a47', RECHAZADA: '#e11d48', REABIERTA: '#397d91' }
-  const COLORES_PRIO = { BAJA: '#94a3b8', MEDIA: '#397d91', ALTA: '#f59e0b', URGENTE: '#e11d48' }
+  const COLORES_ESTADO = { REGISTRADA: '#94a3b8', ASIGNADA: '#4c82b4', EN_PROCESO: '#2f6699', RESUELTA: '#27567f', CERRADA: '#17324c', RECHAZADA: '#e11d48', REABIERTA: '#4c82b4' }
+  const COLORES_PRIO = { BAJA: '#94a3b8', MEDIA: '#2f6699', ALTA: '#f59e0b', URGENTE: '#e11d48' }
 </script>
 
 <Encabezado titulo="Reportes y estadísticas" subtitulo="Estado general de las solicitudes e indicadores de tiempos de respuesta">

@@ -32,11 +32,12 @@
 </script>
 
 <div class="grid min-h-screen lg:grid-cols-2">
-  <div class="relative hidden overflow-hidden bg-brand-900 lg:flex lg:flex-col lg:justify-between lg:p-12">
-    <div class="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-700/40"></div>
-    <div class="absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-brand-800"></div>
+  <div class="relative hidden overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <div class="flotante absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/15 blur-3xl"></div>
+    <div class="flotante-lenta absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-brand-500/40 blur-3xl"></div>
+    <div class="flotante absolute bottom-1/3 right-1/4 h-64 w-64 rounded-full bg-brand-200/20 blur-3xl"></div>
     <div class="relative flex items-center gap-3 text-white">
-      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10">
+      <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15 shadow-lg shadow-brand-900/20 backdrop-blur-md">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h9"/></svg>
       </div>
       <span class="font-semibold">Sistema de Solicitudes CUL</span>
@@ -49,8 +50,8 @@
     <p class="relative text-xs text-brand-200">Proyecto final · Ingeniería del Software · 2026</p>
   </div>
 
-  <div class="flex items-center justify-center p-6">
-    <div class="w-full max-w-sm">
+  <div class="flex items-center justify-center p-4 sm:p-6">
+    <div class="vidrio w-full max-w-sm rounded-3xl p-6 sm:p-8">
       <h1 class="text-2xl font-semibold text-slate-900">Iniciar sesión</h1>
       <p class="mt-1 text-sm text-slate-500">Ingrese con su correo institucional.</p>
 
@@ -76,7 +77,7 @@
         <button class="btn-primario w-full" disabled={cargando}>{cargando ? 'Ingresando…' : 'Ingresar'}</button>
       </form>
 
-      <div class="mt-8 rounded-xl border border-dashed border-slate-300 p-4">
+      <div class="mt-8 rounded-2xl border border-dashed border-slate-300/70 bg-white/40 p-4 backdrop-blur-sm">
         <p class="text-xs font-medium uppercase tracking-wide text-slate-500">Cuentas de demostración · clave Demo1234*</p>
         <div class="mt-3 grid grid-cols-2 gap-2">
           {#each DEMO as [rol, correo]}

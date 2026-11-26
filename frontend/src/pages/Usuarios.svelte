@@ -51,40 +51,80 @@
   <button class="btn-primario" on:click={nuevo}>+ Nuevo usuario</button>
 </Encabezado>
 
-<div class="tarjeta mb-4 grid gap-3 p-4 sm:grid-cols-4">
-  <div class="sm:col-span-2"><label class="etiqueta" for="uq">Buscar</label><input id="uq" class="campo" placeholder="Nombre, correo o documento" bind:value={f.q} on:input={cargar} /></div>
-  <div><label class="etiqueta" for="ur">Rol</label>
-    <select id="ur" class="campo" bind:value={f.rol} on:change={cargar}><option value="">Todos</option>{#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}</select></div>
-  <div><label class="etiqueta" for="ua">Estado</label>
-    <select id="ua" class="campo" bind:value={f.activo} on:change={cargar}><option value="">Todos</option><option value="true">Activos</option><option value="false">Inactivos</option></select></div>
+<div class="panel mb-4">
+  <div class="panel-cabecera">
+    <div class="panel-titulo">
+      <span class="panel-icono">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h18M6 12h12M10 19h4"/></svg>
+      </span>
+      Filtros
+      {#if lista.length}<span class="chip-conteo">{lista.length}</span>{/if}
+    </div>
+  </div>
+  <div class="grid gap-3 p-4 sm:grid-cols-4">
+    <div class="sm:col-span-2">
+      <label class="etiqueta" for="uq">Buscar</label>
+      <div class="relative">
+        <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+        <input id="uq" class="campo pl-9" placeholder="Nombre, correo o documento" bind:value={f.q} on:input={cargar} />
+      </div>
+    </div>
+    <div><label class="etiqueta" for="ur">Rol</label>
+      <select id="ur" class="campo" bind:value={f.rol} on:change={cargar}><option value="">Todos</option>{#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}</select></div>
+    <div><label class="etiqueta" for="ua">Estado</label>
+      <select id="ua" class="campo" bind:value={f.activo} on:change={cargar}><option value="">Todos</option><option value="true">Activos</option><option value="false">Inactivos</option></select></div>
+  </div>
 </div>
 
-<div class="tarjeta overflow-x-auto">
-  <table class="tabla w-full min-w-[820px]">
-    <thead><tr><th>Usuario</th><th>Documento</th><th>Dependencia / programa</th><th>Rol</th><th>Estado</th><th>Creado</th><th></th></tr></thead>
-    <tbody>
-      {#each lista as u}
-        <tr class={u.activo ? '' : 'opacity-60'}>
-          <td><p class="font-medium text-slate-800">{u.nombre_completo}</p><p class="text-xs text-slate-500">{u.email}</p></td>
-          <td class="font-mono text-xs">{u.documento}</td>
-          <td>{u.dependencia || '—'}</td>
-          <td>
-            <select class="campo w-40 py-1" value={u.rol.codigo} on:change={(e) => cambiarRol(u, e.target.value)} disabled={u.id === $sesion.id}>
-              {#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}
-            </select>
-          </td>
-          <td><span class="rounded-full px-2 py-0.5 text-xs font-medium {u.activo ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}">{u.activo ? 'Activo' : 'Inactivo'}</span></td>
-          <td class="text-xs">{fechaCorta(u.fecha_creacion)}</td>
-          <td class="whitespace-nowrap text-right">
-            <button class="btn-fantasma px-2 py-1 text-xs" on:click={() => editar(u)}>Editar</button>
-            {#if u.id !== $sesion.id}<button class="btn-fantasma px-2 py-1 text-xs" on:click={() => alternarActivo(u)}>{u.activo ? 'Desactivar' : 'Activar'}</button>{/if}
-          </td>
-        </tr>
-      {:else}
-        <tr><td colspan="7" class="py-10 text-center text-slate-400">Sin resultados</td></tr>
-      {/each}
-    </tbody>
-  </table>
+<div class="panel">
+  <div class="panel-cabecera">
+    <div class="panel-titulo">
+      <span class="panel-icono">
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1M12 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm4 3a4 4 0 0 0 0-7m4 13v-1a4 4 0 0 0-3-3.87"/></svg>
+      </span>
+      Usuarios
+    </div>
+    <span class="text-xs text-slate-500">{lista.length} registro(s)</span>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="tabla w-full min-w-[820px]">
+      <thead><tr><th>Usuario</th><th>Documento</th><th>Dependencia / programa</th><th>Rol</th><th>Estado</th><th>Creado</th><th></th></tr></thead>
+      <tbody>
+        {#each lista as u}
+          <tr class="transition odd:bg-white/25 hover:bg-white/70 {u.activo ? '' : 'opacity-60'}">
+            <td><p class="font-medium text-slate-800">{u.nombre_completo}</p><p class="text-xs text-slate-500">{u.email}</p></td>
+            <td class="font-mono text-xs">{u.documento}</td>
+            <td>{u.dependencia || '—'}</td>
+            <td>
+              <select class="campo w-40 py-1" value={u.rol.codigo} on:change={(e) => cambiarRol(u, e.target.value)} disabled={u.id === $sesion.id}>
+                {#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}
+              </select>
+            </td>
+            <td><span class="rounded-full px-2 py-0.5 text-xs font-medium {u.activo ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}">{u.activo ? 'Activo' : 'Inactivo'}</span></td>
+            <td class="text-xs">{fechaCorta(u.fecha_creacion)}</td>
+            <td class="whitespace-nowrap text-right">
+              <button class="btn-fantasma px-2 py-1 text-xs" on:click={() => editar(u)}>Editar</button>
+              {#if u.id !== $sesion.id}<button class="btn-fantasma px-2 py-1 text-xs" on:click={() => alternarActivo(u)}>{u.activo ? 'Desactivar' : 'Activar'}</button>{/if}
+            </td>
+          </tr>
+        {:else}
+          <tr>
+            <td colspan="7">
+              <div class="panel-vacio">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
+                  <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1M12 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm4 3a4 4 0 0 0 0-7m4 13v-1a4 4 0 0 0-3-3.87"/></svg>
+                </span>
+                <div>
+                  <p class="text-sm font-medium text-slate-700">Sin usuarios</p>
+                  <p class="mt-1 text-xs text-slate-500">Ajuste los filtros o cree un nuevo usuario.</p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <Modal titulo={editando ? `Editar ${editando.nombre_completo}` : 'Nuevo usuario'} bind:abierto={modal} ancho="max-w-xl">

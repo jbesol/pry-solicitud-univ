@@ -82,8 +82,15 @@
 </script>
 
 <div class="min-h-screen lg:flex">
+  <!-- Manchas de color de fondo: dan profundidad a las superficies de vidrio -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="flotante absolute -left-24 top-8 h-80 w-80 rounded-full bg-brand-500/25 blur-3xl"></div>
+    <div class="flotante-lenta absolute -right-24 top-1/3 h-96 w-96 rounded-full bg-brand-200/70 blur-3xl"></div>
+    <div class="flotante absolute -bottom-32 left-1/3 h-96 w-96 rounded-full bg-brand-900/10 blur-3xl"></div>
+  </div>
+
   <!-- Barra lateral -->
-  <aside class="fixed inset-y-0 left-0 z-30 w-64 transform bg-brand-900 text-brand-100 transition lg:static lg:translate-x-0 {menuMovil ? 'translate-x-0' : '-translate-x-full'}">
+  <aside class="fixed inset-y-0 left-0 z-30 w-64 transform border-r border-white/10 bg-gradient-to-b from-brand-900/95 via-brand-900/92 to-brand-800/95 text-brand-100 shadow-2xl shadow-brand-900/40 backdrop-blur-xl transition lg:static lg:translate-x-0 {menuMovil ? 'translate-x-0' : '-translate-x-full'}">
     <div class="flex h-16 items-center gap-3 px-5">
       <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h16"/></svg>
@@ -96,7 +103,7 @@
     <nav class="mt-4 space-y-1 px-3">
       {#each menu as m}
         <a href={m.href} use:link
-          class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition {activo(m.href, ruta) ? 'bg-white/15 font-medium text-white' : 'hover:bg-white/5 hover:text-white'}">
+          class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition duration-200 {activo(m.href, ruta) ? 'bg-white/15 font-medium text-white shadow-inner shadow-white/10 ring-1 ring-white/15' : 'hover:bg-white/10 hover:text-white'}">
           <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d={ICONOS[m.icono]}/></svg>
           {m.texto}
         </a>
@@ -111,10 +118,10 @@
       </div>
     </div>
   </aside>
-  {#if menuMovil}<button class="fixed inset-0 z-20 bg-black/30 lg:hidden" on:click={() => (menuMovil = false)} aria-label="Cerrar menú"></button>{/if}
+  {#if menuMovil}<button class="fixed inset-0 z-20 bg-brand-900/30 backdrop-blur-sm lg:hidden" on:click={() => (menuMovil = false)} aria-label="Cerrar menú"></button>{/if}
 
   <div class="flex min-w-0 flex-1 flex-col">
-    <header class="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur lg:px-8">
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-white/60 bg-white/60 px-4 shadow-sm shadow-brand-900/5 backdrop-blur-xl lg:px-8">
       <button class="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden" on:click={() => (menuMovil = true)} aria-label="Abrir menú">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -130,13 +137,13 @@
 
         {#if panel}
           <button class="fixed inset-0 z-10 cursor-default" on:click={() => (panel = false)} aria-label="Cerrar"></button>
-          <div class="absolute right-0 top-12 z-20 w-96 max-w-[90vw] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3">
+          <div class="vidrio absolute right-0 top-12 z-20 w-96 max-w-[90vw] overflow-hidden rounded-2xl">
+            <div class="flex items-center justify-between border-b border-white/60 px-4 py-3">
               <p class="text-sm font-semibold text-slate-900">Notificaciones</p>
               <a href="/notificaciones" use:link class="text-xs font-medium text-brand-600 hover:underline" on:click={() => (panel = false)}>Ver todas</a>
             </div>
             {#each recientes as n}
-              <button class="block w-full border-b border-slate-50 px-4 py-3 text-left hover:bg-slate-50 {n.leida ? '' : 'bg-brand-50/60'}" on:click={() => abrirNotif(n)}>
+              <button class="block w-full border-b border-slate-100/70 px-4 py-3 text-left transition hover:bg-white/70 {n.leida ? '' : 'bg-brand-50/60'}" on:click={() => abrirNotif(n)}>
                 <p class="text-sm font-medium text-slate-800">{n.titulo}</p>
                 <p class="mt-0.5 line-clamp-2 text-xs text-slate-500">{n.mensaje}</p>
                 <p class="mt-1 text-[11px] text-slate-400">{relativo(n.fecha)}</p>

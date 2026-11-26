@@ -2,15 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Manchas suaves de fondo: dan profundidad a las superficies de vidrio (glassmorphism). */
+@layer base {
+  body {
+    @apply text-slate-800 antialiased;
+    background-color: #eef3f9;
+    background-image:
+      radial-gradient(60rem 42rem at 112% -18%, rgba(76, 130, 180, 0.30), transparent 60%),
+      radial-gradient(52rem 36rem at -14% 108%, rgba(23, 50, 76, 0.20), transparent 62%),
+      radial-gradient(38rem 26rem at 52% 118%, rgba(126, 172, 212, 0.22), transparent 65%);
+    background-attachment: fixed;
+  }
+}
+
 @layer components {
-  .campo { @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20 disabled:bg-slate-100; }
+  .campo { @apply block w-full rounded-xl border border-slate-200/80 bg-white/85 px-3 py-2 text-sm text-slate-800 shadow-sm backdrop-blur-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/15 disabled:bg-slate-100/70; }
   .etiqueta { @apply mb-1 block text-xs font-medium uppercase tracking-wide text-slate-500; }
-  .tarjeta { @apply rounded-xl border border-slate-200 bg-white shadow-sm; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition active:scale-[.98] disabled:pointer-events-none disabled:opacity-50; }
-  .btn-primario { @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-sm; }
-  .btn-secundario { @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50; }
+  .tarjeta { @apply rounded-2xl border border-white/60 bg-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_10px_30px_-12px_rgba(23,50,76,0.30)] backdrop-blur-xl transition duration-300; animation: aparecer 0.35s ease-out; }
+  .tarjeta-destacada { @apply tarjeta hover:-translate-y-1 hover:border-white hover:bg-white/70 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_22px_48px_-18px_rgba(23,50,76,0.40)]; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition duration-200 active:scale-[.98] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 focus-visible:ring-offset-2; }
+  .btn-primario { @apply btn bg-gradient-to-b from-brand-500 to-brand-600 text-white shadow-md shadow-brand-900/20 hover:from-brand-600 hover:to-brand-700 hover:shadow-lg hover:shadow-brand-900/25; }
+  .btn-secundario { @apply btn border border-slate-300/80 bg-white/70 text-slate-700 backdrop-blur-sm hover:bg-white; }
   .btn-peligro { @apply btn bg-rose-600 text-white hover:bg-rose-700; }
-  .btn-fantasma { @apply btn text-slate-600 hover:bg-slate-100; }
-  .tabla th { @apply bg-slate-50 px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500; }
-  .tabla td { @apply border-t border-slate-100 px-4 py-3 text-sm text-slate-700; }
+  .btn-fantasma { @apply btn text-slate-600 hover:bg-white/60; }
+  .tabla th { @apply bg-white/50 px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500; }
+  .tabla td { @apply border-t border-slate-100/80 px-4 py-3 text-sm text-slate-700; }
+  /* Superficies de vidrio reutilizables */
+  .vidrio { @apply border border-white/60 bg-white/55 shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_24px_60px_-20px_rgba(23,50,76,0.45)] backdrop-blur-2xl; }
+
+  /* Paneles con cabecera para el contenido central */
+  .panel { @apply tarjeta overflow-hidden; }
+  .panel-cabecera { @apply flex flex-wrap items-center justify-between gap-3 border-b border-white/60 px-5 py-3.5; }
+  .panel-titulo { @apply flex items-center gap-2 text-sm font-semibold text-slate-900; }
+  .panel-icono { @apply flex h-7 w-7 items-center justify-center rounded-lg bg-brand-50 text-brand-600 ring-1 ring-brand-100; }
+  .panel-vacio { @apply flex flex-col items-center gap-3 px-6 py-14 text-center; }
+  .chip-conteo { @apply rounded-full bg-brand-50/80 px-2.5 py-1 text-xs font-semibold text-brand-700 ring-1 ring-brand-100; }
+
+  /* Botón de regreso */
+  .btn-volver { @apply inline-flex items-center gap-2.5 rounded-full border border-white/70 bg-white/60 py-1 pl-1 pr-4 text-sm font-medium text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_6px_18px_-10px_rgba(23,50,76,0.45)] backdrop-blur-md transition duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/85 hover:text-brand-700; }
+  .btn-volver-icono { @apply flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-brand-700 transition duration-200 group-hover:-translate-x-0.5 group-hover:bg-brand-100; }
+}
+
+@layer utilities {
+  @keyframes flotar {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -22px, 0) scale(1.04); }
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .flotante { animation: flotar 14s ease-in-out infinite; }
+  .flotante-lenta { animation: flotar 22s ease-in-out infinite reverse; }
+  @media (prefers-reduced-motion: reduce) {
+    .flotante, .flotante-lenta, .tarjeta { animation: none; }
+  }
 }

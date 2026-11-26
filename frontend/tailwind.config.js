@@ -4,15 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Azul institucional CUL (Barranquilla): corporativo, sobrio y poco saturado.
         brand: {
-          50: '#f1f7f9',
-          100: '#dbeaf0',
-          200: '#b8d4de',
-          500: '#4d96a8',
-          600: '#397d91',
-          700: '#2f687a',
-          800: '#244f5e',
-          900: '#173a47'
+          50: '#f2f6fb',
+          100: '#dfe9f4',
+          200: '#bfd3e7',
+          500: '#4c82b4',
+          600: '#2f6699',
+          700: '#27567f',
+          800: '#1f4466',
+          900: '#17324c'
         }
       },
       fontFamily: { sans: ['Inter', 'system-ui', 'Segoe UI', 'Roboto', 'sans-serif'] }

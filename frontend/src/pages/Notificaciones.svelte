@@ -29,7 +29,7 @@
 
 <div class="tarjeta divide-y divide-slate-100">
   {#each lista as n}
-    <button class="flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-slate-50 {n.leida ? '' : 'bg-brand-50/50'}" on:click={() => abrir(n)}>
+    <button class="flex w-full items-start gap-4 px-5 py-4 text-left transition hover:bg-white/70 {n.leida ? '' : 'bg-brand-50/50'}" on:click={() => abrir(n)}>
       <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full {n.leida ? 'bg-slate-200' : 'bg-brand-600'}"></span>
       <div class="min-w-0 flex-1">
         <div class="flex flex-wrap items-center gap-2">

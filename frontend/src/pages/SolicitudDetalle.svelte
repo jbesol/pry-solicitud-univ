@@ -94,7 +94,12 @@
   }
 </script>
 
-<a href="/solicitudes" use:link class="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">← Volver al listado</a>
+<a href="/solicitudes" use:link class="btn-volver group mb-4">
+  <span class="btn-volver-icono">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  </span>
+  Volver al listado
+</a>
 
 {#if error}
   <div class="tarjeta p-8 text-center text-slate-600">{error}</div>
