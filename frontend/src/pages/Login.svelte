@@ -31,16 +31,16 @@
   }
 </script>
 
-<div class="grid min-h-screen lg:grid-cols-2">
+<div class="grid min-h-[100dvh] lg:grid-cols-2">
   <div class="relative hidden overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 lg:flex lg:flex-col lg:justify-between lg:p-12">
     <div class="flotante absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/15 blur-3xl"></div>
     <div class="flotante-lenta absolute -bottom-32 -left-16 h-96 w-96 rounded-full bg-brand-500/40 blur-3xl"></div>
     <div class="flotante absolute bottom-1/3 right-1/4 h-64 w-64 rounded-full bg-brand-200/20 blur-3xl"></div>
-    <div class="relative flex items-center gap-3 text-white">
-      <div class="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/15 shadow-lg shadow-brand-900/20 backdrop-blur-md">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h9"/></svg>
+    <div class="relative flex items-center gap-3">
+      <div class="rounded-xl bg-white px-3 py-2 shadow-lg shadow-brand-900/25">
+        <img src="/logo-cul.png" alt="Corporación Universitaria Latinoamericana" class="h-8 w-auto" width="235" height="90" />
       </div>
-      <span class="font-semibold">Sistema de Solicitudes CUL</span>
+      <span class="text-sm font-semibold text-white">Sistema de Solicitudes</span>
     </div>
     <div class="relative max-w-md">
       <p class="mb-3 text-sm font-medium uppercase tracking-[0.18em] text-brand-200">Corporación Universitaria Latinoamericana</p>
@@ -50,8 +50,17 @@
     <p class="relative text-xs text-brand-200">Proyecto final · Ingeniería del Software · 2026</p>
   </div>
 
-  <div class="flex items-center justify-center p-4 sm:p-6">
-    <div class="vidrio w-full max-w-sm rounded-3xl p-6 sm:p-8">
+  <div class="flex flex-col items-center justify-center gap-5 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-6 sm:p-6 lg:gap-0">
+    <!-- Identidad institucional en móvil y tablet (el panel lateral solo se ve desde lg) -->
+    <div class="flex w-full max-w-sm flex-col items-center gap-3 lg:hidden">
+      <img src="/logo-cul.png" alt="Corporación Universitaria Latinoamericana · Institución de Educación Superior" class="h-16 w-auto drop-shadow-sm" width="235" height="90" />
+      <div class="text-center">
+        <p class="text-[11px] font-medium uppercase leading-snug tracking-[0.16em] text-brand-700">Sistema de Solicitudes</p>
+        <p class="mt-1 text-[11px] leading-snug text-slate-500">Barranquilla, Colombia</p>
+      </div>
+    </div>
+
+    <div class="vidrio w-full max-w-sm rounded-3xl p-5 sm:p-8">
       <h1 class="text-2xl font-semibold text-slate-900">Iniciar sesión</h1>
       <p class="mt-1 text-sm text-slate-500">Ingrese con su correo institucional.</p>
 
@@ -86,5 +95,7 @@
         </div>
       </div>
     </div>
+
+    <p class="text-center text-[11px] leading-snug text-slate-500 lg:hidden">Proyecto final · Ingeniería del Software · 2026</p>
   </div>
 </div>

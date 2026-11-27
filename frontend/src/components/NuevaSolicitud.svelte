@@ -55,7 +55,7 @@
       <label class="etiqueta" for="desc">Descripción *</label>
       <textarea id="desc" class="campo" rows="5" bind:value={form.descripcion} minlength="10" maxlength="5000" required placeholder="Explique su solicitud con el mayor detalle posible"></textarea>
     </div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
         <label class="etiqueta" for="prio">Prioridad</label>
         <select id="prio" class="campo" bind:value={form.prioridad}>
@@ -69,7 +69,7 @@
         </select>
       </div>
     </div>
-    <div class="flex justify-end gap-2 pt-2">
+    <div class="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
       <button type="button" class="btn-secundario" on:click={() => (abierto = false)}>Cancelar</button>
       <button class="btn-primario" disabled={enviando}>{enviando ? 'Registrando…' : 'Registrar solicitud'}</button>
     </div>

@@ -69,8 +69,8 @@
       Limpiar filtros
     </button>
   </div>
-  <div class="grid gap-3 p-4 sm:grid-cols-2 lg:grid-cols-6">
-    <div class="lg:col-span-2">
+  <div class="grid grid-cols-2 gap-3 p-4 sm:grid-cols-2 lg:grid-cols-6">
+    <div class="col-span-2 lg:col-span-2">
       <label class="etiqueta" for="q">Buscar</label>
       <div class="relative">
         <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
@@ -128,7 +128,7 @@
     </div>
     <span class="text-xs text-slate-500">{cargando ? 'Cargando…' : lista.length >= 500 ? 'Mostrando las 500 más recientes' : `${lista.length} registro(s)`}</span>
   </div>
-  <div class="overflow-x-auto">
+  <div class="tabla-escritorio overflow-x-auto">
     <table class="tabla w-full min-w-[780px] table-fixed">
       <thead>
         <tr><th class="w-[13%]">Código</th><th class="w-[31%]">Solicitud</th><th class="w-[12%]">Prioridad</th><th class="w-[13%]">Estado</th><th class="w-[16%]">Responsable</th><th class="w-[15%]">Fechas</th></tr>
@@ -171,6 +171,49 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Listado en móvil: tarjetas apiladas -->
+  <ul class="lista-movil">
+    {#if cargando}
+      <li class="px-4 py-10 text-center text-sm text-slate-400">Cargando…</li>
+    {:else}
+      {#each lista as s}
+        <li>
+          <a href={`/solicitudes/${s.id}`} use:link class="block px-4 py-3.5 transition active:bg-white/70">
+            <div class="flex items-center justify-between gap-2">
+              <span class="truncate font-mono text-[11px] text-slate-500">{s.codigo}</span>
+              <EstadoBadge estado={s.estado} />
+            </div>
+            <p class="mt-1 line-clamp-2 text-sm font-medium text-slate-800">{s.asunto}</p>
+            <p class="mt-0.5 truncate text-xs text-slate-500">
+              {s.categoria.nombre}{rol !== 'ESTUDIANTE' ? ' · ' + s.solicitante.nombre_completo : ''}
+            </p>
+            <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <PrioridadBadge prioridad={s.prioridad} />
+              <span class={s.vencida ? 'text-[11px] font-semibold text-rose-600' : 'text-[11px] text-slate-500'}>
+                {s.vencida ? 'Vencida' : 'Límite'} {fechaCorta(s.fecha_limite)}
+              </span>
+              {#if rol !== 'ESTUDIANTE'}
+                <span class="ml-auto truncate text-[11px] text-slate-400">{s.responsable?.nombre_completo || 'Sin asignar'}</span>
+              {/if}
+            </div>
+          </a>
+        </li>
+      {:else}
+        <li class="px-4">
+          <div class="panel-vacio">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+            </span>
+            <div>
+              <p class="text-sm font-medium text-slate-700">Sin resultados</p>
+              <p class="mt-1 text-xs text-slate-500">Ajuste los filtros o limpie la búsqueda.</p>
+            </div>
+          </div>
+        </li>
+      {/each}
+    {/if}
+  </ul>
 </div>
 
 <NuevaSolicitud bind:abierto={modalNueva} on:creada={cargar} />

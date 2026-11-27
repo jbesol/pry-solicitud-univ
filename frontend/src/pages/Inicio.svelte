@@ -48,17 +48,17 @@
   {#if puedeRegistrar}<button class="btn-primario" on:click={() => (modalNueva = true)}>+ Nueva solicitud</button>{/if}
 </Encabezado>
 
-<div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+<div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
   {#each tarjetas as c}
-    <div class="tarjeta-destacada group relative overflow-hidden p-5">
+    <div class="tarjeta-destacada group relative overflow-hidden p-4 sm:p-5">
       <span class="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-2xl transition duration-500 {c.alerta ? 'bg-rose-500/10 group-hover:bg-rose-500/20' : 'bg-brand-500/10 group-hover:bg-brand-500/20'}"></span>
-      <div class="relative flex items-start justify-between gap-3">
-        <p class="text-xs font-medium uppercase tracking-wide text-slate-500">{c.t}</p>
-        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ring-1 {c.alerta ? 'bg-rose-50 text-rose-600 ring-rose-100' : 'bg-brand-50 text-brand-600 ring-brand-100'}">
+      <div class="relative flex items-start justify-between gap-2">
+        <p class="text-[11px] font-medium uppercase leading-tight tracking-wide text-slate-500 sm:text-xs">{c.t}</p>
+        <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ring-1 sm:h-9 sm:w-9 {c.alerta ? 'bg-rose-50 text-rose-600 ring-rose-100' : 'bg-brand-50 text-brand-600 ring-brand-100'}">
           <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d={ICONOS[c.icono]}/></svg>
         </span>
       </div>
-      <p class="relative mt-3 text-3xl font-semibold {c.alerta && c.v ? 'text-rose-600' : 'text-slate-900'}">{cargando ? '…' : c.v}</p>
+      <p class="relative mt-2 text-2xl font-semibold sm:mt-3 sm:text-3xl {c.alerta && c.v ? 'text-rose-600' : 'text-slate-900'}">{cargando ? '…' : c.v}</p>
     </div>
   {/each}
 </div>
@@ -85,15 +85,15 @@
   <ul class="divide-y divide-white/60">
     {#each recientes as s}
       <li>
-        <a href="/solicitudes/{s.id}" use:link class="group flex flex-wrap items-center gap-x-4 gap-y-1 px-5 py-3 transition hover:bg-white/70">
-          <span class="w-32 font-mono text-xs text-slate-500">{s.codigo}</span>
-          <span class="min-w-0 flex-1 truncate text-sm font-medium text-slate-800">{s.asunto}</span>
+        <a href="/solicitudes/{s.id}" use:link class="group flex flex-wrap items-center gap-x-3 gap-y-1.5 px-4 py-3 transition hover:bg-white/70 sm:gap-x-4 sm:px-5">
+          <span class="hidden w-32 font-mono text-xs text-slate-500 sm:block">{s.codigo}</span>
+          <span class="w-full min-w-0 truncate text-sm font-medium text-slate-800 sm:w-auto sm:flex-1">{s.asunto}</span>
           <PrioridadBadge prioridad={s.prioridad} />
           <EstadoBadge estado={s.estado} />
-          <span class="w-32 whitespace-nowrap text-right text-xs {s.vencida ? 'font-semibold text-rose-600' : 'text-slate-500'}">
+          <span class="ml-auto whitespace-nowrap text-[11px] sm:w-32 sm:text-right sm:text-xs {s.vencida ? 'font-semibold text-rose-600' : 'text-slate-500'}">
             {s.vencida ? 'Vencida' : 'Límite'} {fechaCorta(s.fecha_limite)}
           </span>
-          <span class="flex h-6 w-6 items-center justify-center rounded-full text-slate-300 transition group-hover:bg-brand-50 group-hover:text-brand-600">
+          <span class="hidden h-6 w-6 items-center justify-center rounded-full text-slate-300 transition group-hover:bg-brand-50 group-hover:text-brand-600 sm:flex">
             <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </span>
         </a>

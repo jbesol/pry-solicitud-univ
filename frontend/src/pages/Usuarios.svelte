@@ -86,7 +86,7 @@
     </div>
     <span class="text-xs text-slate-500">{lista.length} registro(s)</span>
   </div>
-  <div class="overflow-x-auto">
+  <div class="tabla-escritorio overflow-x-auto">
     <table class="tabla w-full min-w-[820px]">
       <thead><tr><th>Usuario</th><th>Documento</th><th>Dependencia / programa</th><th>Rol</th><th>Estado</th><th>Creado</th><th></th></tr></thead>
       <tbody>
@@ -125,25 +125,66 @@
       </tbody>
     </table>
   </div>
+
+  <!-- Listado en móvil: tarjetas apiladas -->
+  <ul class="lista-movil">
+    {#each lista as u}
+      <li class="px-4 py-3.5 {u.activo ? '' : 'opacity-60'}">
+        <div class="flex items-start justify-between gap-2">
+          <div class="min-w-0">
+            <p class="truncate text-sm font-medium text-slate-800">{u.nombre_completo}</p>
+            <p class="truncate text-xs text-slate-500">{u.email}</p>
+          </div>
+          <span class="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium {u.activo ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-500'}">{u.activo ? 'Activo' : 'Inactivo'}</span>
+        </div>
+        <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500">
+          <span class="font-mono">{u.documento}</span>
+          <span class="truncate">{u.dependencia || '—'}</span>
+          <span class="ml-auto">{fechaCorta(u.fecha_creacion)}</span>
+        </div>
+        <div class="mt-2.5 flex items-center justify-between gap-2">
+          <select class="campo w-36 py-1 text-xs" value={u.rol.codigo} on:change={(e) => cambiarRol(u, e.target.value)} disabled={u.id === $sesion.id} aria-label="Rol">
+            {#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}
+          </select>
+          <span class="flex gap-1">
+            <button class="btn-fantasma px-2 py-1 text-xs" on:click={() => editar(u)}>Editar</button>
+            {#if u.id !== $sesion.id}<button class="btn-fantasma px-2 py-1 text-xs" on:click={() => alternarActivo(u)}>{u.activo ? 'Desactivar' : 'Activar'}</button>{/if}
+          </span>
+        </div>
+      </li>
+    {:else}
+      <li>
+        <div class="panel-vacio">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-500 ring-1 ring-brand-100">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1M12 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm4 3a4 4 0 0 0 0-7m4 13v-1a4 4 0 0 0-3-3.87"/></svg>
+          </span>
+          <div>
+            <p class="text-sm font-medium text-slate-700">Sin usuarios</p>
+            <p class="mt-1 text-xs text-slate-500">Ajuste los filtros o cree un nuevo usuario.</p>
+          </div>
+        </div>
+      </li>
+    {/each}
+  </ul>
 </div>
 
 <Modal titulo={editando ? `Editar ${editando.nombre_completo}` : 'Nuevo usuario'} bind:abierto={modal} ancho="max-w-xl">
-  <form class="grid grid-cols-2 gap-4" on:submit|preventDefault={guardar}>
+  <form class="grid grid-cols-1 gap-4 sm:grid-cols-2" on:submit|preventDefault={guardar}>
     {#if !editando}
       <div><label class="etiqueta" for="fd">Documento *</label><input id="fd" class="campo" bind:value={form.documento} minlength="5" required /></div>
       <div><label class="etiqueta" for="fr">Rol *</label><select id="fr" class="campo" bind:value={form.rol}>{#each Object.entries(ROLES) as [k, v]}<option value={k}>{v}</option>{/each}</select></div>
     {/if}
     <div><label class="etiqueta" for="fn">Nombres *</label><input id="fn" class="campo" bind:value={form.nombres} required /></div>
     <div><label class="etiqueta" for="fa">Apellidos *</label><input id="fa" class="campo" bind:value={form.apellidos} required /></div>
-    <div class="col-span-2"><label class="etiqueta" for="fe">Correo *</label><input id="fe" type="email" class="campo" bind:value={form.email} required /></div>
+    <div class="sm:col-span-2"><label class="etiqueta" for="fe">Correo *</label><input id="fe" type="email" class="campo" bind:value={form.email} required /></div>
     <div><label class="etiqueta" for="ft">Teléfono</label><input id="ft" class="campo" bind:value={form.telefono} /></div>
     <div><label class="etiqueta" for="fdp">Dependencia / programa</label><input id="fdp" class="campo" bind:value={form.dependencia} /></div>
-    <div class="col-span-2"><label class="etiqueta" for="fp">{editando ? 'Nueva contraseña (dejar vacío para no cambiar)' : 'Contraseña inicial * (mín. 8)'}</label>
+    <div class="sm:col-span-2"><label class="etiqueta" for="fp">{editando ? 'Nueva contraseña (dejar vacío para no cambiar)' : 'Contraseña inicial * (mín. 8)'}</label>
       <div class="relative">
         <input id="fp" type={mostrarPassword ? 'text' : 'password'} class="campo pr-11" value={form.password || ''} on:input={(e) => (form.password = e.currentTarget.value)} minlength="8" required={!editando} />
         <button type="button" class="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100" on:click={() => (mostrarPassword = !mostrarPassword)} aria-label={mostrarPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}>{mostrarPassword ? '○' : '◉'}</button>
       </div>
     </div>
-    <div class="col-span-2 flex justify-end gap-2"><button type="button" class="btn-secundario" on:click={() => (modal = false)}>Cancelar</button><button class="btn-primario">Guardar</button></div>
+    <div class="flex justify-end gap-2 sm:col-span-2"><button type="button" class="btn-secundario" on:click={() => (modal = false)}>Cancelar</button><button class="btn-primario">Guardar</button></div>
   </form>
 </Modal>

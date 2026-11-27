@@ -29,7 +29,7 @@
 
 <div class="tarjeta divide-y divide-slate-100">
   {#each lista as n}
-    <button class="flex w-full items-start gap-4 px-5 py-4 text-left transition hover:bg-white/70 {n.leida ? '' : 'bg-brand-50/50'}" on:click={() => abrir(n)}>
+    <button class="flex w-full items-start gap-3 px-4 py-4 text-left transition hover:bg-white/70 sm:gap-4 sm:px-5 {n.leida ? '' : 'bg-brand-50/50'}" on:click={() => abrir(n)}>
       <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full {n.leida ? 'bg-slate-200' : 'bg-brand-600'}"></span>
       <div class="min-w-0 flex-1">
         <div class="flex flex-wrap items-center gap-2">
@@ -38,7 +38,7 @@
         </div>
         <p class="mt-0.5 text-sm text-slate-600">{n.mensaje}</p>
       </div>
-      <span class="shrink-0 text-xs text-slate-400" title={fecha(n.fecha)}>{relativo(n.fecha)}</span>
+      <span class="shrink-0 whitespace-nowrap text-[11px] text-slate-400 sm:text-xs" title={fecha(n.fecha)}>{relativo(n.fecha)}</span>
     </button>
   {:else}
     <p class="px-5 py-12 text-center text-sm text-slate-400">No hay notificaciones.</p>

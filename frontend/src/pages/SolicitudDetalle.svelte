@@ -114,9 +114,9 @@
         <PrioridadBadge prioridad={s.prioridad} />
         {#if s.vencida}<span class="rounded-full bg-rose-600 px-2 py-0.5 text-xs font-semibold text-white">Vencida</span>{/if}
       </div>
-      <h1 class="mt-2 text-2xl font-semibold text-slate-900">{s.asunto}</h1>
+      <h1 class="mt-2 text-xl font-semibold leading-tight text-slate-900 sm:text-2xl">{s.asunto}</h1>
     </div>
-    <div class="flex flex-wrap gap-2">
+    <div class="flex w-full flex-wrap gap-2 sm:w-auto">
       {#if s.permisos.puede_editar}<button class="btn-secundario" on:click={abrirEditar}>Editar</button>{/if}
       {#if s.permisos.puede_asignar}<button class="btn-secundario" on:click={abrirAsignar}>{s.responsable ? 'Reasignar' : 'Asignar responsable'}</button>{/if}
       {#each s.permisos.transiciones as t}
@@ -127,7 +127,7 @@
 
   <div class="grid gap-6 lg:grid-cols-3">
     <div class="space-y-6 lg:col-span-2">
-      <section class="tarjeta p-5">
+      <section class="tarjeta p-4 sm:p-5">
         <h2 class="etiqueta">Descripción</h2>
         <p class="whitespace-pre-line text-sm leading-relaxed text-slate-700">{s.descripcion}</p>
         {#if s.solucion}
@@ -142,7 +142,7 @@
         <h2 class="border-b border-slate-100 px-5 py-3 font-semibold text-slate-900">Observaciones ({s.observaciones.length})</h2>
         <ul class="divide-y divide-slate-50">
           {#each s.observaciones as o}
-            <li class="flex gap-3 px-5 py-4">
+            <li class="flex gap-3 px-4 py-4 sm:px-5">
               <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-600">{iniciales(o.autor.nombre_completo)}</div>
               <div class="min-w-0">
                 <p class="text-sm"><span class="font-medium text-slate-800">{o.autor.nombre_completo}</span>
@@ -158,7 +158,7 @@
         {#if s.permisos.puede_observar}
           <form class="border-t border-slate-100 p-4" on:submit|preventDefault={agregarObs}>
             <textarea class="campo" rows="2" bind:value={obs} placeholder="Escriba una observación…" minlength="2" required></textarea>
-            <div class="mt-2 flex items-center justify-between">
+            <div class="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               {#if esPersonal}
                 <label class="flex items-center gap-2 text-xs text-slate-600"><input type="checkbox" bind:checked={interna} class="rounded" /> Nota interna (no la ve el estudiante)</label>
               {:else}<span></span>{/if}
@@ -172,7 +172,7 @@
     </div>
 
     <div class="space-y-6">
-      <section class="tarjeta p-5">
+      <section class="tarjeta p-4 sm:p-5">
         <dl class="space-y-3 text-sm">
           {#each [
             ['Solicitante', s.solicitante.nombre_completo],
@@ -184,12 +184,12 @@
             ['Resolución', fecha(s.fecha_resolucion)],
             ['Cierre', fecha(s.fecha_cierre)]
           ] as [k, v]}
-            <div class="flex justify-between gap-4"><dt class="text-slate-500">{k}</dt><dd class="text-right font-medium text-slate-800">{v}</dd></div>
+            <div class="flex justify-between gap-4"><dt class="shrink-0 text-slate-500">{k}</dt><dd class="min-w-0 break-words text-right font-medium text-slate-800">{v}</dd></div>
           {/each}
         </dl>
       </section>
 
-      <section class="tarjeta p-5">
+      <section class="tarjeta p-4 sm:p-5">
         <h2 class="mb-4 font-semibold text-slate-900">Historial</h2>
         <ol class="relative ml-2 border-l border-slate-200">
           {#each [...s.movimientos].reverse() as m}
@@ -252,7 +252,7 @@
       <div><label class="etiqueta" for="ea">Asunto</label><input id="ea" class="campo" bind:value={ed.asunto} minlength="5" required /></div>
       <div><label class="etiqueta" for="ed">Descripción</label><textarea id="ed" class="campo" rows="4" bind:value={ed.descripcion} minlength="10" required></textarea></div>
     {/if}
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
         <label class="etiqueta" for="ec">Categoría</label>
         <select id="ec" class="campo" bind:value={ed.categoria_id}>{#each categorias as c}<option value={c.id}>{c.nombre}</option>{/each}</select>

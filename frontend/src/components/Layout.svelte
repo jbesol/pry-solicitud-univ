@@ -81,7 +81,7 @@
   }
 </script>
 
-<div class="min-h-screen lg:flex">
+<div class="min-h-[100dvh] lg:flex">
   <!-- Manchas de color de fondo: dan profundidad a las superficies de vidrio -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="flotante absolute -left-24 top-8 h-80 w-80 rounded-full bg-brand-500/25 blur-3xl"></div>
@@ -90,17 +90,17 @@
   </div>
 
   <!-- Barra lateral -->
-  <aside class="fixed inset-y-0 left-0 z-30 w-64 transform border-r border-white/10 bg-gradient-to-b from-brand-900/95 via-brand-900/92 to-brand-800/95 text-brand-100 shadow-2xl shadow-brand-900/40 backdrop-blur-xl transition lg:static lg:translate-x-0 {menuMovil ? 'translate-x-0' : '-translate-x-full'}">
-    <div class="flex h-16 items-center gap-3 px-5">
+  <aside class="fixed inset-y-0 left-0 z-30 flex w-64 max-w-[85vw] transform flex-col border-r border-white/10 bg-gradient-to-b from-brand-900/95 via-brand-900/92 to-brand-800/95 text-brand-100 shadow-2xl shadow-brand-900/40 backdrop-blur-xl transition duration-300 lg:static lg:w-64 lg:max-w-none lg:translate-x-0 {menuMovil ? 'translate-x-0' : '-translate-x-full'}">
+    <div class="flex h-16 shrink-0 items-center gap-3 px-5">
       <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
         <svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h16"/></svg>
       </div>
       <div class="leading-tight">
-        <p class="text-sm font-semibold text-white">Solicitudes CUL</p>
-        <p class="text-xs text-brand-200">Corporación Universitaria Latinoamericana</p>
+        <p class="text-sm font-semibold leading-tight text-white">Solicitudes CUL</p>
+        <p class="text-[11px] leading-tight text-brand-200">Corporación Universitaria Latinoamericana</p>
       </div>
     </div>
-    <nav class="mt-4 space-y-1 px-3">
+    <nav class="mt-4 flex-1 space-y-1 overflow-y-auto overscroll-contain px-3 pb-4">
       {#each menu as m}
         <a href={m.href} use:link
           class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition duration-200 {activo(m.href, ruta) ? 'bg-white/15 font-medium text-white shadow-inner shadow-white/10 ring-1 ring-white/15' : 'hover:bg-white/10 hover:text-white'}">
@@ -109,10 +109,10 @@
         </a>
       {/each}
     </nav>
-    <div class="absolute bottom-0 w-full border-t border-white/10 p-4">
+    <div class="shrink-0 border-t border-white/10 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
       <p class="truncate text-sm font-medium text-white">{$sesion.nombre_completo}</p>
-      <p class="text-xs text-brand-200">{ROLES[rol]}</p>
-      <div class="mt-3 flex gap-2">
+      <p class="truncate text-xs text-brand-200">{ROLES[rol]}</p>
+      <div class="mt-3 flex flex-wrap gap-2">
         <button class="rounded-md bg-white/10 px-2.5 py-1 text-xs hover:bg-white/20" on:click={() => (modalClave = true)}>Contraseña</button>
         <button class="rounded-md bg-white/10 px-2.5 py-1 text-xs hover:bg-white/20" on:click={salir}>Cerrar sesión</button>
       </div>
@@ -121,7 +121,7 @@
   {#if menuMovil}<button class="fixed inset-0 z-20 bg-brand-900/30 backdrop-blur-sm lg:hidden" on:click={() => (menuMovil = false)} aria-label="Cerrar menú"></button>{/if}
 
   <div class="flex min-w-0 flex-1 flex-col">
-    <header class="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-white/60 bg-white/60 px-4 shadow-sm shadow-brand-900/5 backdrop-blur-xl lg:px-8">
+    <header class="sticky top-0 z-10 flex h-16 items-center justify-between gap-2 border-b border-white/60 bg-white/60 px-4 shadow-sm shadow-brand-900/5 backdrop-blur-xl lg:px-8">
       <button class="rounded-md p-2 text-slate-600 hover:bg-slate-100 lg:hidden" on:click={() => (menuMovil = true)} aria-label="Abrir menú">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
@@ -137,7 +137,7 @@
 
         {#if panel}
           <button class="fixed inset-0 z-10 cursor-default" on:click={() => (panel = false)} aria-label="Cerrar"></button>
-          <div class="vidrio absolute right-0 top-12 z-20 w-96 max-w-[90vw] overflow-hidden rounded-2xl">
+          <div class="vidrio absolute right-0 top-12 z-20 w-[min(24rem,calc(100vw_-_2rem))] overflow-hidden rounded-2xl">
             <div class="flex items-center justify-between border-b border-white/60 px-4 py-3">
               <p class="text-sm font-semibold text-slate-900">Notificaciones</p>
               <a href="/notificaciones" use:link class="text-xs font-medium text-brand-600 hover:underline" on:click={() => (panel = false)}>Ver todas</a>
@@ -156,7 +156,7 @@
       </div>
     </header>
 
-    <main class="mx-auto w-full max-w-7xl flex-1 p-4 lg:p-8"><slot /></main>
+    <main class="mx-auto w-full max-w-7xl flex-1 px-3 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:px-4 sm:py-6 lg:p-8"><slot /></main>
   </div>
 </div>
 

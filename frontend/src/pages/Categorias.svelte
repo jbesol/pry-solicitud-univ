@@ -53,7 +53,7 @@
       <h3 class="relative mt-3 font-semibold leading-snug text-slate-900">{c.nombre}</h3>
       <p class="relative mt-0.5 truncate text-xs text-slate-500">{c.dependencia || 'Sin dependencia asignada'}</p>
       <p class="relative mt-3 flex-1 text-sm leading-relaxed text-slate-600">{c.descripcion || 'Sin descripción'}</p>
-      <div class="relative mt-4 flex items-center justify-between gap-2 border-t border-white/70 pt-3">
+      <div class="relative mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-white/70 pt-3">
         <span class="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-2.5 py-1 text-xs font-medium text-slate-600 ring-1 ring-slate-200/70">
           <svg class="h-3.5 w-3.5 text-brand-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2m6-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
           SLA {c.tiempo_respuesta_horas} h
@@ -83,7 +83,7 @@
   <form class="space-y-4" on:submit|preventDefault={guardar}>
     <div><label class="etiqueta" for="cn">Nombre *</label><input id="cn" class="campo" bind:value={form.nombre} minlength="3" required /></div>
     <div><label class="etiqueta" for="cd">Descripción</label><textarea id="cd" class="campo" rows="2" bind:value={form.descripcion}></textarea></div>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div><label class="etiqueta" for="cdep">Dependencia responsable</label><input id="cdep" class="campo" bind:value={form.dependencia} /></div>
       <div><label class="etiqueta" for="ct">Tiempo de respuesta (horas) *</label><input id="ct" type="number" min="1" max="2160" class="campo" bind:value={form.tiempo_respuesta_horas} required /></div>
     </div>

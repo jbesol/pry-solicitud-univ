@@ -37,19 +37,19 @@
   <button class="btn-secundario" on:click={exportar}>Exportar CSV</button>
 </Encabezado>
 
-<div class="tarjeta mb-6 flex flex-wrap items-end gap-3 p-4">
-  <div><label class="etiqueta" for="rd">Desde</label><input id="rd" type="date" class="campo" bind:value={f.desde} on:change={cargar} /></div>
-  <div><label class="etiqueta" for="rh">Hasta</label><input id="rh" type="date" class="campo" bind:value={f.hasta} on:change={cargar} /></div>
-  <div><label class="etiqueta" for="rc">Categoría</label>
+<div class="tarjeta mb-6 grid grid-cols-2 items-end gap-3 p-4 sm:flex sm:flex-wrap">
+  <div class="min-w-0 sm:w-40"><label class="etiqueta" for="rd">Desde</label><input id="rd" type="date" class="campo" bind:value={f.desde} on:change={cargar} /></div>
+  <div class="min-w-0 sm:w-40"><label class="etiqueta" for="rh">Hasta</label><input id="rh" type="date" class="campo" bind:value={f.hasta} on:change={cargar} /></div>
+  <div class="col-span-2 min-w-0 sm:col-auto sm:w-48"><label class="etiqueta" for="rc">Categoría</label>
     <select id="rc" class="campo" bind:value={f.categoria_id} on:change={cargar}><option value="">Todas</option>{#each categorias as c}<option value={c.id}>{c.nombre}</option>{/each}</select></div>
-  <div class="flex gap-1">
+  <div class="col-span-2 flex flex-wrap gap-1 sm:col-auto">
     {#each [[7, '7 días'], [30, '30 días'], [90, '90 días']] as [d, t]}<button class="btn-fantasma px-3 text-xs" on:click={() => periodo(d)}>{t}</button>{/each}
     <button class="btn-fantasma px-3 text-xs" on:click={() => { f = { desde: '', hasta: '', categoria_id: '', prioridad: '' }; cargar() }}>Todo</button>
   </div>
 </div>
 
 {#if r}
-  <div class="grid grid-cols-2 gap-4 lg:grid-cols-5">
+  <div class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
     {#each [
       ['Total', r.total, ''],
       ['Abiertas', r.abiertas, ''],
@@ -57,9 +57,9 @@
       ['Cumplimiento SLA', r.cumplimiento_sla === null ? '—' : r.cumplimiento_sla + ' %', ''],
       ['Tiempo prom. resolución', r.tiempo_promedio_resolucion_horas === null ? '—' : r.tiempo_promedio_resolucion_horas + ' h', '']
     ] as [t, v, c]}
-      <div class="tarjeta p-5">
-        <p class="text-xs font-medium uppercase tracking-wide text-slate-500">{t}</p>
-        <p class="mt-2 text-2xl font-semibold text-slate-900 {c}">{v}</p>
+      <div class="tarjeta p-4 sm:p-5">
+        <p class="text-[11px] font-medium uppercase leading-tight tracking-wide text-slate-500 sm:text-xs">{t}</p>
+        <p class="mt-2 text-xl font-semibold leading-tight text-slate-900 sm:text-2xl {c}">{v}</p>
       </div>
     {/each}
   </div>
