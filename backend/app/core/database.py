@@ -11,7 +11,19 @@ class Base(DeclarativeBase):
     """Clase base de todas las entidades persistentes."""
 
 
+def _normalizar_url(url: str) -> str:
+    """Usa psycopg2 cuando la URL no indica controlador (formato que entregan Neon y otros servicios).
+
+    SQLAlchemy 2.1 asume psycopg 3 para "postgresql://", que no está entre las dependencias.
+    """
+    for prefijo in ("postgresql://", "postgres://"):
+        if url.startswith(prefijo):
+            return "postgresql+psycopg2://" + url[len(prefijo):]
+    return url
+
+
 def _build_engine(url: str):
+    url = _normalizar_url(url)
     kwargs = {"pool_pre_ping": True}
     if url.startswith("sqlite"):
         kwargs = {"connect_args": {"check_same_thread": False}}
