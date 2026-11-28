@@ -1,0 +1,2 @@
+# Usado por Vercel. Las dependencias se definen en backend/requirements.txt
+-r backend/requirements.txt
