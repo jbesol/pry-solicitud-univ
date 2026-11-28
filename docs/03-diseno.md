@@ -413,6 +413,9 @@ Criterios de diseño de interfaz:
 - **Acciones contextuales**: el detalle muestra únicamente los botones de las transiciones permitidas para ese usuario en ese estado (los calcula el backend con la máquina de estados).
 - **Estados con color consistente** en toda la aplicación (badge) y prioridad con indicador de color.
 - **Vencidas resaltadas en rojo** para priorizar la atención.
+- **Identidad institucional**: logo de la Corporación Universitaria Latinoamericana en el inicio de sesión y paleta de azul institucional (`tailwind.config.js`).
+- **Diseño adaptable**: en pantallas pequeñas los listados de solicitudes y usuarios se muestran como tarjetas apiladas y las ventanas emergentes se anclan en la parte inferior.
+- **Contraseñas**: los campos del inicio de sesión, del cambio de contraseña y del formulario de usuarios permiten mostrar u ocultar lo escrito.
 
 ## 3.7 Patrones de diseño
 

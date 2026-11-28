@@ -13,7 +13,7 @@ Características principales:
 - Observaciones públicas e internas.
 - Notificaciones internas con contador y correo opcional, implementadas con el patrón **Observer**.
 - Reportes por estado, prioridad, categoría, responsable y mes; % de cumplimiento del SLA; tiempo promedio de resolución; exportación CSV.
-- Interfaz responsiva en español.
+- Interfaz responsiva en español, con la identidad de la Corporación Universitaria Latinoamericana.
 
 ## 5.2 Comparación con el alcance inicial
 
@@ -55,11 +55,11 @@ La arquitectura final es la diseñada en la [Entrega 3](03-diseno.md#31-arquitec
 - SQL manual en los controladores → capas con repositorios y ORM.
 - Reglas repartidas en condicionales → máquina de estados centralizada.
 - Comparación de contraseñas en texto plano como respaldo → solo bcrypt.
-- Ausencia de pruebas → 43 pruebas automatizadas con CI.
+- Ausencia de pruebas → 44 pruebas automatizadas con CI.
 
 ## 5.4 Resultados de las pruebas
 
-- **43 de 43 pruebas aprobadas**, con **92 %** de cobertura del backend (detalle en la [sección 4.5](04-implementacion-pruebas.md#45-casos-de-prueba-y-resultados)).
+- **44 de 44 pruebas aprobadas**, con **92 %** de cobertura del backend (detalle en la [sección 4.5](04-implementacion-pruebas.md#45-casos-de-prueba-y-resultados)).
 - Los **16 requisitos funcionales** y las **15 reglas de negocio** tienen al menos un caso de prueba.
 - Rendimiento: todas las consultas habituales responden en **≤ 0,14 s con 10.000 solicitudes** en PostgreSQL ([sección 4.6](04-implementacion-pruebas.md#46-prueba-de-rendimiento-rnf11)).
 - Complejidad ciclomática promedio **A (2,3)** y mantenibilidad **A** en todos los módulos.
@@ -160,4 +160,4 @@ Usuarios de demostración (contraseña **`Demo1234*`**). En la pantalla de inici
 2. *Categorías*: cree tipos de servicio con su dependencia y tiempo de respuesta en horas.
 3. *Parámetros*: prefijo del código, SLA por defecto, activar correo (requiere configurar SMTP en `.env`).
 
-Todos los usuarios ven sus avisos en la **campana** de la barra superior y pueden cambiar su contraseña desde el menú lateral.
+Todos los usuarios ven sus avisos en la **campana** de la barra superior y pueden cambiar su contraseña desde el menú lateral. En los campos de contraseña, el botón junto al texto permite mostrar u ocultar lo escrito.

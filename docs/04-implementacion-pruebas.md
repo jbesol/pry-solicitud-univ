@@ -74,7 +74,7 @@ Cada prueba de integración crea una base de datos nueva en memoria con los dato
 
 ## 4.5 Casos de prueba y resultados
 
-**Resultado: 43 pruebas, 43 aprobadas (100 %). Cobertura del backend: 92 %.**
+**Resultado: 44 pruebas, 44 aprobadas (100 %). Cobertura del backend: 92 %.**
 
 | ID | Caso de prueba | Requisito / regla | Resultado esperado | Estado |
 |---|---|---|---|:-:|
@@ -117,13 +117,14 @@ Cada prueba de integración crea una base de datos nueva en memoria con los dato
 | CP41 | CERRADA no admite observaciones | RN06 | `permite_observaciones = False` | ✅ |
 | CP42 | El publicador notifica a todos los observadores | Patrón Observer | 2 notificaciones | ✅ |
 | CP43 | El evento excluye al actor, duplicados e inactivos | RF10 | Solo el destinatario válido | ✅ |
+| CP44 | El administrador cambia la contraseña de otro usuario | RF02 | 200; entra con la nueva y 401 con la anterior | ✅ |
 
 Ejecución:
 
 ```
 $ cd backend && pytest --cov=app
-43 passed in 6.7s
-TOTAL   1396 stmts   107 miss   92%
+44 passed in 6.0s
+TOTAL   1307 stmts    99 miss   92%
 ```
 
 ## 4.6 Prueba de rendimiento (RNF11)
@@ -148,13 +149,13 @@ Todas cumplen el objetivo de < 1 s. **Hallazgo y corrección:** el listado gener
 | Métrica | Valor | Herramienta |
 |---|---|---|
 | Líneas de código backend (sin comentarios ni vacías) | ≈ 1.800 | `wc` |
-| Líneas de código de pruebas | ≈ 340 | `wc` |
-| Líneas de código frontend (Svelte/JS) | ≈ 1.300 | `wc` |
+| Líneas de código de pruebas | ≈ 350 | `wc` |
+| Líneas de código frontend (Svelte/JS) | ≈ 1.600 | `wc` |
 | Clases principales del modelo OO (entidades) | 8 (`Rol`, `Usuario`, `Categoria`, `Solicitud`, `Observacion`, `Movimiento`, `Notificacion`, `Parametro`) | — |
 | Clases de dominio y servicios (estados, observadores, repositorios, servicios) | 29 | — |
 | Endpoints REST | 32 | FastAPI / OpenAPI |
 | Tablas de la BD | 8, con 9 restricciones CHECK | PostgreSQL |
-| Pruebas automatizadas | 43 (100 % aprobadas) | pytest |
+| Pruebas automatizadas | 44 (100 % aprobadas) | pytest |
 | Cobertura de código del backend | 92 % | pytest-cov |
 | Complejidad ciclomática promedio | **A (2,3)**; ninguna función de la aplicación supera el rango C | radon |
 | Índice de mantenibilidad | Todos los módulos en rango **A** | radon |

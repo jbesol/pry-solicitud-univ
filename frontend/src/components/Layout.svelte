@@ -137,7 +137,7 @@
 
         {#if panel}
           <button class="fixed inset-0 z-10 cursor-default" on:click={() => (panel = false)} aria-label="Cerrar"></button>
-          <div class="vidrio absolute right-0 top-12 z-20 w-[min(24rem,calc(100vw_-_2rem))] overflow-hidden rounded-2xl">
+          <div class="vidrio absolute right-0 top-12 z-20 w-[min(24rem,calc(100vw_-_2rem))] bg-white overflow-hidden rounded-2xl">
             <div class="flex items-center justify-between border-b border-white/60 px-4 py-3">
               <p class="text-sm font-semibold text-slate-900">Notificaciones</p>
               <a href="/notificaciones" use:link class="text-xs font-medium text-brand-600 hover:underline" on:click={() => (panel = false)}>Ver todas</a>

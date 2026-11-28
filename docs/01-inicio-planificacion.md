@@ -87,8 +87,6 @@ Artefactos usados: product backlog (historias de usuario de la [Entrega 2](02-an
 
 ## 1.8 Cronograma
 
-> Ajuste las fechas de inicio según el calendario real del equipo. La entrega final es el **28 de noviembre de 2026**.
-
 | Iteración | Semanas | Entregable | Actividades principales |
 |---|---|---|---|
 | 0. Inicio | 1 | Entrega 1 | Definición del problema, alcance, actores, riesgos, cronograma, creación del repositorio |
@@ -120,13 +118,10 @@ gantt
 
 ## 1.9 Distribución de responsabilidades
 
-> Reemplace "Integrante 2" e "Integrante 3" por los nombres reales del equipo.
-
 | Integrante | Rol en el equipo | Responsabilidades principales |
 |---|---|---|
-| Juan David Bello | Líder técnico / backend | Arquitectura, modelo de datos, API, máquina de estados, pruebas del backend |
-| Integrante 2 | Analista / documentación | Requisitos, historias de usuario, casos de uso, diagramas UML, informe final |
-| Integrante 3 | Frontend / QA | Prototipos, interfaz Svelte, pruebas funcionales, evidencias, manual de usuario |
+| Juan David Bello | Líder técnico / backend | Arquitectura, modelo de datos, API, máquina de estados, pruebas del backend, prototipos, interfaz Svelte, pruebas funcionales |
+| Diego Ardila | Analista / documentación | Requisitos, historias de usuario, casos de uso, diagramas UML, informe final, evidencias, manual de usuario |
 
 Todos los integrantes participan en la revisión de cada entrega y deben conocer el funcionamiento completo para la sustentación.
 

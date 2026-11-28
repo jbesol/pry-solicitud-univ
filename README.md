@@ -15,6 +15,7 @@ Proyecto final de **Ingeniería del Software** · 2026
 - **Notificaciones** internas y correo opcional (patrón *Observer*).
 - **Reportes** por estado, categoría, prioridad, responsable y periodo, con exportación a CSV.
 - Gestión de **usuarios, roles, categorías y parámetros**.
+- **Interfaz responsiva** con la identidad de la Corporación Universitaria Latinoamericana (logo y azul institucional) y opción de mostrar u ocultar la contraseña.
 
 ## Tecnologías
 
@@ -57,7 +58,7 @@ Las instrucciones completas están en el [manual de instalación y uso](docs/05-
 ```bash
 cd backend
 pip install -r requirements-dev.txt
-pytest --cov=app        # 43 pruebas · 92 % de cobertura
+pytest --cov=app        # 44 pruebas · 92 % de cobertura
 ```
 
 ## Estructura
@@ -96,8 +97,7 @@ pytest --cov=app        # 43 pruebas · 92 % de cobertura
 
 | Integrante | Rol |
 |---|---|
-| Juan David Bello | Backend / líder técnico |
-| _Integrante 2_ | Análisis y documentación |
-| _Integrante 3_ | Frontend y QA |
+| Juan David Bello | Backend |
+| Diego Ardila | Análisis y documentación |
 
 Docente: Kevin Villarreal Jiménez · Asignatura: Ingeniería del Software
